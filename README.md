@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Proyecto: Serverless API in APX.school
 
-## Getting Started
+Link a la API: [https://apx-n3-10-01-serverless-api.vercel.app/api/](https://nextjs.org)
 
-First, run the development server:
+Este proyecto es una API serverless diseñada para manejar autenticación de usuarios, gestión de datos de usuario, búsqueda de productos y procesamiento de órdenes de compra. ES LA CONFIG BASE PARA PROYECTO FUTURO. A continuación, se describen los endpoints disponibles y su funcionalidad:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Endpoints
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Autenticación
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **POST /auth**  
+  Recibe un email, encuentra o crea un usuario con ese email y le envía un código de verificación por email.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **POST /auth/token**  
+  Recibe un email y un código, valida que sean correctos. Si lo son, devuelve un token e invalida el código.
 
-## Learn More
+### Gestión de Usuario
 
-To learn more about Next.js, take a look at the following resources:
+- **GET /me**  
+  Devuelve la información del usuario asociado al token proporcionado.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **PATCH /me**  
+  Permite modificar ciertos datos del usuario autenticado.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **PATCH /me/address**  
+  Permite modificar la dirección del usuario autenticado.
 
-## Deploy on Vercel
+### Productos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **GET /search?q=query&offset=0&limit=10**  
+  Permite buscar productos en la base de datos, verificando stock y otros detalles necesarios.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **GET /products/{id}**  
+  Obtiene toda la información de un producto específico.
+
+### Órdenes de Compra
+
+- **POST /order?productId={id}**  
+  Genera una compra en la base de datos y crea una orden de pago en MercadoPago. Devuelve una URL para redirigir al usuario al proceso de pago.
+
+- **POST /ipn/mercadopago**  
+  Recibe notificaciones de MercadoPago para confirmar pagos exitosos. Cambia el estado de la compra en la base de datos, envía un email al usuario confirmando el pago y genera un aviso interno (por ejemplo, un email o registro en Airtable).
+
+## Notas
+
+- Por ahora, los endpoints solo necesitan responder con un status `200` para las rutas y verbos correctos.
+- Este proyecto servirá como base para futuros desafíos.
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT.
