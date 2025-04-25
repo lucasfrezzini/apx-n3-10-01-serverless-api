@@ -1,6 +1,6 @@
 # Proyecto: Serverless API in APX.school
 
-Link a la API: [https://apx-n3-10-01-serverless-api.vercel.app/api/](https://nextjs.org)
+Link al proyecto: [https://apx-n3-10-01-serverless-api.vercel.app/](https://apx-n3-10-01-serverless-api.vercel.app/)
 
 Este proyecto es una API serverless diseñada para manejar autenticación de usuarios, gestión de datos de usuario, búsqueda de productos y procesamiento de órdenes de compra. ES LA CONFIG BASE PARA PROYECTO FUTURO. A continuación, se describen los endpoints disponibles y su funcionalidad:
 
